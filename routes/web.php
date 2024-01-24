@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/backend/bots', [Backend\BotsController::class, 'index'])->name('backend.bots');
+    Route::get('/backend/bots/{id}', [Backend\BotsController::class, 'index'])->name('backend.bots.edit');
+});
 require __DIR__.'/auth.php';
