@@ -22,6 +22,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 */
 
 Broadcast::channel('chat.{chatId}', function (User $user, int $chatId) {
-    return $user->id === Chats::findOrNew($chatId)->user_id;
+    //return $user->id === Chats::findOrNew($chatId)->user_id;
+    return true;
 });
 
