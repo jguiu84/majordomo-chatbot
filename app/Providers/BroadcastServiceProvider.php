@@ -12,8 +12,8 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //Broadcast::routes();
-        Broadcast::routes(['middleware' => ['auth:sanctum']]);
+        Broadcast::routes();
+        //Broadcast::routes(['middleware' => ['auth:sanctum']]); //https://github.com/pusher/pusher-js/issues/536
         require base_path('routes/channels.php');
     }
 }
