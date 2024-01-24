@@ -19,27 +19,19 @@ class ChatForm extends Component
     public function getListeners()
     {
         return [
-            "echo-private:chat.{$this->chat_id},MessageSent" => 'notifyShipped',
-        ];
-    }
-    /*
-    public function getListeners()
-    {
-        return [
             // Public Channel
-            "echo:chat-{$this->chat_id},MessageSent" => 'notifyNewOrder',
- 
+            //"echo:chat.{$this->chat_id},MessageSent" => 'notifyNewOrder',
             // Private Channel
-            "echo-private:chat-{$this->chat_id},MessageSent" => 'notifyNewOrder',
- 
+            "echo-private:chat.{$this->chat_id},MessageSent" => 'notifyShipped',
+
             // Presence Channel
-            "echo-presence:chat-{$this->chat_id},MessageSent" => 'notifyNewOrder',
-            "echo-presence:chat-{$this->chat_id},here" => 'notifyNewOrder',
-            "echo-presence:chat-{$this->chat_id},joining" => 'notifyNewOrder',
-            "echo-presence:chat-{$this->chat_id},leaving" => 'notifyNewOrder',
+            //"echo-presence:chat.{$this->chat_id},MessageSent" => 'notifyNewOrder',
+            //"echo-presence:chat.{$this->chat_id},here" => 'notifyNewOrder',
+            //"echo-presence:chat.{$this->chat_id},joining" => 'notifyNewOrder',
+            //"echo-presence:chat.{$this->chat_id},leaving" => 'notifyNewOrder',
         ];
     }
-    */
+ 
 
     public function notifyShipped($event){ 
         //array_push($this->messages, $this->newMessage . json_encode($event["message"]));
