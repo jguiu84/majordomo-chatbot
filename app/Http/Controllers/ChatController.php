@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class ChatController extends Controller
 {
     public function index() {
-        return view('chats.index');
+        return view('chat.index', ['chatId' => '1']);
     }
 }

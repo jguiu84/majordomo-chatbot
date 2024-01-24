@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/backend/bots/{id}', [Backend\BotsController::class, 'update'])->name('backend.bots.update');
     
 });
+
+Route::get('/chat/{botid}', [Controllers\ChatController::class, 'index'])->name('chat');
+
 require __DIR__.'/auth.php';
