@@ -2,12 +2,12 @@
 <x-app-layout>
 
     index.blade.php
-<script type="module">
+    <script type="module">
 
-    Echo.private('chat.{$chatId}')
-    .listen('MessageSent', (e) => {
-        console.log(e.message);
-    });
+        Echo.private('chat.{$chatId}')
+        .listen('MessageSent', (e) => {
+            console.log(e.message);
+        });
 
-</script>
+    </script>
 </x-app-layout>
