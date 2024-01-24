@@ -19,6 +19,13 @@ class ChatForm extends Component
     public function getListeners()
     {
         return [
+            "echo-private:chat.{$this->chat_id},MessageSent" => 'notifyShipped',
+        ];
+    }
+    /*
+    public function getListeners()
+    {
+        return [
             // Public Channel
             "echo:chat-{$this->chat_id},MessageSent" => 'notifyNewOrder',
  
@@ -32,7 +39,13 @@ class ChatForm extends Component
             "echo-presence:chat-{$this->chat_id},leaving" => 'notifyNewOrder',
         ];
     }
+    */
 
+    public function notifyShipped($event){ 
+        //array_push($this->messages, $this->newMessage . json_encode($event["message"]));
+        array_push($this->messages, $event["message"]["message"]);
+        
+    }
 
     public function sendMessage()
     {
@@ -44,7 +57,7 @@ class ChatForm extends Component
         ]);
         
 
-        array_push($this->messages, $this->newMessage);
+        //array_push($this->messages, $this->newMessage);
         $this->newMessage = '';
 
         broadcast(new MessageSent($dbMessage));

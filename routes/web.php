@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/chat/{botid}', [Controllers\ChatController::class, 'index'])->name('chat');
 
 Route::get('test', function(){
-    $message = App\Models\ChatMessages::find(1);
+    $message = App\Models\ChatMessages::inRandomOrder()->first();
 
 
     \App\Events\MessageSent::dispatch($message);
