@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/backend/bots', [Backend\BotsController::class, 'index'])->name('backend.bots');
-    Route::get('/backend/bots/{id}', [Backend\BotsController::class, 'index'])->name('backend.bots.edit');
+    Route::get('/backend/bots/new', [Backend\BotsController::class, 'create'])->name('backend.bots.create');
+    Route::post('/backend/bots/new', [Backend\BotsController::class, 'store'])->name('backend.bots.store');
+    Route::get('/backend/bots/{id}', [Backend\BotsController::class, 'edit'])->name('backend.bots.edit');
+    Route::patch('/backend/bots/{id}', [Backend\BotsController::class, 'update'])->name('backend.bots.update');
+    
 });
 require __DIR__.'/auth.php';

@@ -14,6 +14,7 @@
                     @endforeach
                 </div>
             </div>
+            <a href="{{ route('backend.bots.create') }}">New</a>
         </div>
     </div>
 </x-backend-layout>

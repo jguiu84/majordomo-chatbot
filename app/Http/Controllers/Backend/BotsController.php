@@ -12,7 +12,7 @@ class BotsController extends Controller
     public function index()
     {
         $bots = Bots::paginate(20);
-        dd($bots);
+
         return view('backend.bots.index', [
             'bots' => $bots
         ]);
@@ -26,18 +26,30 @@ class BotsController extends Controller
 
     public function store(Request $request)
     {
-        
+        $bot = Bots::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+        return redirect()->route('backend.bots');
     }
 
     public function edit(Request $request)
     {
-        return view('backend.bots.edit');
+
+        $bot = Bots::where('id', $request->id)->first();
+        
+        return view('backend.bots.edit', ['bot' => $bot]);
     }
 
 
     public function update(Request $request)
     {
+        $bot = Bots::where('id', $request->id)->first();
+        $bot->name = $request->name;
+        $bot->description = $request->description;
+        $bot->update();
 
+        return redirect()->route('backend.bots.edit', ['id' => $bot->id]);
     }
 
     public function destroy(Request $request)
