@@ -35,7 +35,7 @@ class ChatForm extends Component
 
     public function notifyShipped($event){ 
         //array_push($this->messages, $this->newMessage . json_encode($event["message"]));
-        array_push($this->messages, $event["message"]["message"]);
+        array_push($this->messages, (object)$event["message"]);
         
     }
 
