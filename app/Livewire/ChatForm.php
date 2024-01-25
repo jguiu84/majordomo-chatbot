@@ -70,6 +70,8 @@ class ChatForm extends Component
     }
 
     public function botAnswer($message){
+
+        
         $this->botTyping = false;
         $message = strrev($message);
         $dbMessage = ChatMessages::create([
