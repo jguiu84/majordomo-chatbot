@@ -27,6 +27,20 @@
                 </div>
                 @endif
             @endforeach
+            @if($botTyping)
+            <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end" >
+                <div>
+                    <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                        <div class='flex-row flex space-x-2 justify-center items-center dark:invert'>
+                            <div class='h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                            <div class='h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                            <div class='h-2 w-2 bg-white rounded-full animate-bounce'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-slate-300"></div>
+            </div>
+            @endif
         </div>
         
         <div class="bg-slate-300 p-4">

@@ -13,6 +13,8 @@ class ChatForm extends Component
 
     public $messages = [];
     public $newMessage;
+    public $botTyping = false;
+
 
     protected $rules = [
         'newMessage' => 'required'
@@ -61,7 +63,21 @@ class ChatForm extends Component
 
         array_push($this->messages, $dbMessage);
 
+        $this->botTyping = true;
+
+        $this->botAnswer($dbMessage->message);
         //broadcast(new MessageSent($dbMessage));
+    }
+
+    public function botAnswer($message){
+        $this->botTyping = false;
+        $message = strrev($message);
+        $dbMessage = ChatMessages::create([
+            'chat_id' => $this->chat_id,
+            'message' => $message,
+            'is_bot_answer' => true
+        ]);
+        array_push($this->messages, $dbMessage);
     }
 
 
