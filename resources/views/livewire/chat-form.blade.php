@@ -1,5 +1,6 @@
 <div>
     <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-slate-100 text-gray-800 p-10">
+    
     <!-- Component Start -->
     <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="flex flex-col flex-grow h-0 p-4 overflow-auto">
@@ -29,7 +30,9 @@
         </div>
         
         <div class="bg-slate-300 p-4">
-            <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…" wire:model="newMessage" wire:keydown.enter="sendMessage">
+            <form wire:submit="sendMessage">
+                <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…" wire:model="newMessage">
+            </form>
         </div>
     </div>
     <!-- Component End  -->

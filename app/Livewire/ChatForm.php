@@ -14,6 +14,12 @@ class ChatForm extends Component
     public $messages = [];
     public $newMessage;
 
+    protected $rules = [
+        'newMessage' => 'required'
+        //'date_start' => 'required_unless:repeat,0',
+        //'date_end' => 'required_unless:repeat,0'
+    ];
+
     public function mount() { }
 
     public function getListeners()
@@ -41,6 +47,7 @@ class ChatForm extends Component
 
     public function sendMessage()
     {
+        $this->validate();
 
         $dbMessage = ChatMessages::create([
             'chat_id' => $this->chat_id,
@@ -50,9 +57,11 @@ class ChatForm extends Component
         
 
         //array_push($this->messages, $this->newMessage);
-        $this->newMessage = '';
+        $this->newMessage=null;
 
-        broadcast(new MessageSent($dbMessage));
+        array_push($this->messages, $dbMessage);
+
+        //broadcast(new MessageSent($dbMessage));
     }
 
 
