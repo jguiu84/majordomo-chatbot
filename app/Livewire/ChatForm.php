@@ -43,7 +43,7 @@ class ChatForm extends Component
         $old_messages = ChatMessages::where('chat_id', $this->chat_id)
                             ->orderBy("created_at")
                             ->get();
-                            
+
         foreach($old_messages as $old_message){
             array_push($this->messages, $old_message);
         }
