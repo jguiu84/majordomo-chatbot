@@ -3,7 +3,7 @@
     
     <!-- Component Start -->
     <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
-        <div class="flex flex-col flex-grow flex-shrink h-full p-4 overflow-auto">
+        <div class="flex flex-col flex-grow h-1 p-4 overflow-auto">
             @foreach ($messages as $message)
                 @if($message->is_bot_answer)
                 <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end" wire:key="message-{{ $message->id }}">
