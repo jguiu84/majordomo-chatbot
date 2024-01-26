@@ -29,6 +29,7 @@ class BotsController extends Controller
         $bot = Bots::create([
             'name' => $request->name,
             'description' => $request->description,
+            'ai_type' => $request->ai_type //not editable
         ]);
         return redirect()->route('backend.bots');
     }
@@ -47,6 +48,7 @@ class BotsController extends Controller
         $bot = Bots::where('id', $request->id)->first();
         $bot->name = $request->name;
         $bot->description = $request->description;
+        $bot->ai_type = $request->ai_type;
         $bot->update();
 
         return redirect()->route('backend.bots.edit', ['id' => $bot->id]);

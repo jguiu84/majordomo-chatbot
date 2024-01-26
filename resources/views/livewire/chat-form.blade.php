@@ -3,7 +3,7 @@
     
     <!-- Component Start -->
     <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
-        <div class="flex flex-col flex-grow h-0 p-4 overflow-auto">
+        <div class="flex flex-col flex-grow flex-shrink h-full p-4 overflow-auto">
             @foreach ($messages as $message)
                 @if($message->is_bot_answer)
                 <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end" wire:key="message-{{ $message->id }}">
@@ -44,7 +44,7 @@
         </div>
         
         <div class="bg-slate-300 p-4">
-            <form wire:submit="sendMessage">
+            <form wire:submit.prevent="sendMessage">
                 <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…" wire:model="newMessage">
             </form>
         </div>

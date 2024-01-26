@@ -32,7 +32,13 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('description')" />
                             </div>
 
-                        
+                            <div>
+                                <x-input-label for="ai_type" :value="__('Ai Type')" />
+                                <x-select-input id="ai_type" name="ai_type" class="mt-1 block w-full" :value="old('ai_type')" required  >
+                                    <option value="openai_assistant">OpenAI Assistant</option>
+                                </x-select-input>
+                                <x-input-error class="mt-2" :messages="$errors->get('ai_type')" />
+                            </div>
 
                             <div class="flex items-center gap-4">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>

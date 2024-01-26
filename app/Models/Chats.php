@@ -13,7 +13,11 @@ class Chats extends Model
     protected $fillable = [
         'name',
         'user_id',
-        'bot_id'
+        'bot_id',
+        'meta'
     ];
 
+    protected $casts = [
+        'meta' => 'array'
+    ];
 }

@@ -13,6 +13,8 @@ class Bots extends Model
     protected $fillable = [
         'name',
         'description',
+        'ai_type',
+        //'prompt'
     ];
 
 }

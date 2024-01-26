@@ -17,9 +17,6 @@
 
                         </header>
 
-                        <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-                            @csrf
-                        </form>
 
                         <form method="post" action="{{ route('backend.bots.create') }}" class="mt-6 space-y-6">
                             @csrf
@@ -32,11 +29,18 @@
 
                             <div>
                                 <x-input-label for="description" :value="__('Description')" />
-                                <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description')" required autofocus autocomplete="description" />
+                                <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description')" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('description')" />
                             </div>
 
-                        
+                            <div>
+                                <x-input-label for="ai_type" :value="__('Ai Type')" />
+                                <x-select-input id="ai_type" name="ai_type" class="mt-1 block w-full" :value="old('ai_type')" required  >
+                                    <option value="openai_assistant">OpenAI Assistant</option>
+                                </x-select-input>
+                                <x-input-error class="mt-2" :messages="$errors->get('ai_type')" />
+                            </div>
+                            
 
                             <div class="flex items-center gap-4">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>

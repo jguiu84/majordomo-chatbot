@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/backend/bots/new', [Backend\BotsController::class, 'store'])->name('backend.bots.store');
     Route::get('/backend/bots/{id}', [Backend\BotsController::class, 'edit'])->name('backend.bots.edit');
     Route::patch('/backend/bots/{id}', [Backend\BotsController::class, 'update'])->name('backend.bots.update');
+
+    Route::get('/backend/openai/{botid}', [Backend\OpenaiBotController::class, 'config'])->name('backend.bots.openai.config');
+    Route::patch('/backend/openai/{botid}', [Backend\OpenaiBotController::class, 'update'])->name('backend.bots.openai.update');
+
     
 });
 
