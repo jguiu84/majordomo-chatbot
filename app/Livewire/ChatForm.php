@@ -31,6 +31,13 @@ class ChatForm extends Component
         //'date_end' => 'required_unless:repeat,0'
     ];
 
+    protected $listeners = [
+        //'bank-account-added' => '$refresh',
+        'send-to-bot' => 'sendToBot'
+        //'expense-updated' => '$refresh',
+        //'togglePayment'
+    ];
+
     //solo se ejecuta al inciar la conversacion
     public function mount() { 
         $this->chat = Chats::where("id", $this->chat_id)->first();
@@ -91,6 +98,7 @@ class ChatForm extends Component
 
     public function sendMessage()
     {
+        header('X-Accel-Buffering: no');
         $this->validate();
 
         $dbMessage = ChatMessages::create([
@@ -106,8 +114,9 @@ class ChatForm extends Component
         array_push($this->messages, $dbMessage);
 
         $this->botTyping = true;
-
-        $this->sendToBot($dbMessage->message);
+        $this->dispatch("scroll-bottom");
+        $this->dispatch("send-to-bot", message: $dbMessage->message)->self();//->to(BankAccountsComponent::class);
+        //$this->sendToBot($dbMessage->message);
         //broadcast(new MessageSent($dbMessage));
     }
 
@@ -159,6 +168,7 @@ class ChatForm extends Component
             'is_bot_answer' => true
         ]);
         array_push($this->messages, $dbMessage);
+        $this->dispatch("scroll-bottom");
     }
 
 
