@@ -35,7 +35,7 @@ echo "mkdir app/public"
 echo "mkdir -p framework/{sessions,views,cache}"
 echo "mkdir -p framework/cache/data"
 echo "chmod -R 775 framework"
-
+echo "cd .."
 echo "sudo chown -R $USER:www-data storage"
 echo "sudo chown -R $USER:www-data bootstrap/cache"
 

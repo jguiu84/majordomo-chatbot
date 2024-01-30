@@ -21,7 +21,6 @@ package-lock.json
 /vendor
 .env
 composer.lock
-/bootstrap/cache
 /public/storage
 /node_modules
 /storage
