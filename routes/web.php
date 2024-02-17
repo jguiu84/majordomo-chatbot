@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/chat/{botid}', [Controllers\ChatController::class, 'index'])->name('chat');
+
+
     Route::get('/backend', [Backend\IndexController::class, 'index'])->name('backend');
     Route::get('/backend/bots', [Backend\BotsController::class, 'index'])->name('backend.bots');
     Route::get('/backend/bots/new', [Backend\BotsController::class, 'create'])->name('backend.bots.create');
@@ -48,7 +51,6 @@ Route::middleware('auth')->group(function () {
     
 });
 
-Route::get('/chat/{botid}', [Controllers\ChatController::class, 'index'])->name('chat');
 
 Route::get('test', function(){
     $message = App\Models\ChatMessages::inRandomOrder()->first();

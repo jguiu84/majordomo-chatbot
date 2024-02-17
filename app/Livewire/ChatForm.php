@@ -54,7 +54,7 @@ class ChatForm extends Component
         foreach($old_messages as $old_message){
             
             $old_message->message = preg_replace("#\*\*([^*]+)\*\*#", "<b>$1</b>", $old_message->message);
-            $old_message->message = nl2br($old_message->message);
+            //$old_message->message = nl2br($old_message->message);
 
             array_push($this->messages, $old_message);
         }
@@ -174,8 +174,8 @@ class ChatForm extends Component
             'is_bot_answer' => true
         ]);
 
-        $dbMessage->message = preg_replace("#\*\*([^*]+)\*\*#", "<b>$1</b>", $dbMessage->messag);
-        $dbMessage->message = nl2br($dbMessage->message);
+        $dbMessage->message = preg_replace("#\*\*([^*]+)\*\*#", "<b>$1</b>", $dbMessage->message);
+        //$dbMessage->message = nl2br($dbMessage->message); 
 
         array_push($this->messages, $dbMessage);
         $this->dispatch("scroll-bottom");
