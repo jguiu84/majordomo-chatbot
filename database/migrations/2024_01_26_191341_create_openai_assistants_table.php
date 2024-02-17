@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('openai_assitants', function (Blueprint $table) {
+        Schema::create('openai_assistants', function (Blueprint $table) {
             $table->id();
             $table->biginteger('bot_id');
-            $table->text('prompt');
+            $table->text('prompt')->nullable();
             $table->text('openai_assistant_id')->nullable();
             $table->timestamps();
         });

@@ -37,7 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/backend/bots/{id}', [Backend\BotsController::class, 'edit'])->name('backend.bots.edit');
     Route::patch('/backend/bots/{id}', [Backend\BotsController::class, 'update'])->name('backend.bots.update');
 
+    Route::get('/backend/openai/files/{botid}', [Backend\OpenaiBotFilesController::class, 'index'])->name('backend.bots.openai.files');
+    Route::patch('/backend/openai/files/{botid}', [Backend\OpenaiBotFilesController::class, 'update'])->name('backend.bots.openai.files.update');
+    Route::get('/backend/openai/files/{botid}/{id}', [Backend\OpenaiBotFilesController::class, 'delete'])->name('backend.bots.openai.files.delete');
+
     Route::get('/backend/openai/{botid}', [Backend\OpenaiBotController::class, 'config'])->name('backend.bots.openai.config');
+
     Route::patch('/backend/openai/{botid}', [Backend\OpenaiBotController::class, 'update'])->name('backend.bots.openai.update');
 
     

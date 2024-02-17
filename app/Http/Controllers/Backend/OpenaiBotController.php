@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bots;
-use App\Models\OpenaiAssitants;
+use App\Models\OpenaiAssistants;
+use App\Models\OpenaiAssistantsFiles;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class OpenaiBotController extends Controller
@@ -13,10 +14,19 @@ class OpenaiBotController extends Controller
     function config(Request $request){
 
         $bot = Bots::where("id", $request->botid)->first();
-        $assistant = OpenaiAssitants::where("bot_id", $bot->id)->first();
+        $assistant = OpenaiAssistants::where("bot_id", $bot->id)->first();
+        if(!$assistant){
+           $assistant = OpenaiAssistants::create([
+            "bot_id" => $bot->id,
+            "prompt" => ""
+           ]);
+        }
+        $files = OpenaiAssistantsFiles::where("bot_openai_assistant_id", $assistant->id)->get();
+
         return view('backend.bots.openai.config', [
             'bot' => $bot,
-            'assistant' => $assistant
+            'assistant' => $assistant,
+            'files' => $files, 
         ]);
     }
 
@@ -25,9 +35,9 @@ class OpenaiBotController extends Controller
 
         $bot = Bots::where("id", $request->botid)->first();
 
-        $assistant = OpenaiAssitants::where("bot_id", $bot->id)->first();
+        $assistant = OpenaiAssistants::where("bot_id", $bot->id)->first();
         if(!$assistant) { 
-            $assistant = OpenaiAssitants::create([
+            $assistant = OpenaiAssistants::create([
                 "bot_id" => $bot->id,
                 "prompt" => ""
             ]);
@@ -37,7 +47,9 @@ class OpenaiBotController extends Controller
         $assistant->update();
     
         if($assistant->openai_assistant_id){
-            $this->updateOpenAIAssistant($bot->name, $assistant);
+            $files = OpenaiAssistantsFiles::where("bot_openai_assistant_id", $assistant->id)->get();
+
+            $this->updateOpenAIAssistant($bot->name, $assistant, $files);
         } else {
             $openai_assistant_id = $this->createOpenAIAssistant($bot->name, $assistant);
             $assistant->openai_assistant_id = $openai_assistant_id;
@@ -64,12 +76,16 @@ class OpenaiBotController extends Controller
         return $OPENAIassistant->id;
     }
 
-    function updateOpenAIAssistant($name, $assistant){
+    function updateOpenAIAssistant($name, $assistant, $files){
+        $fileids = [];
+
+        foreach($files as $file){
+            $fileids[] = $file->openai_file_id;
+        }
+
         $OPENAIassistant = OpenAI::assistants()->modify($assistant->openai_assistant_id, [
             'name' => $name,
-            /*'file_ids' => [
-                $this->argument('file_id'),
-            ],*/
+            'file_ids' => $fileids,
             'tools' => [
                 [
                     'type' => 'retrieval',

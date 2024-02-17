@@ -28,8 +28,21 @@
 
                             <div>
                                 <x-input-label for="prompt" :value="__('OpenAI Assistant ID')" />
-                                <strong class="text-sm">{{ $assistant->openai_assistant_id??'[NONE]' }}</strong>
+                                <strong class="text-sm">{{ $assistant->openai_assistant_id??'[PENDING]' }}</strong>
                             </div>
+
+                            <div class="mx-12">
+                                <x-input-label for="files" :value="__('OpenAI Files')" />
+                                <small class="text-gray-400">{{ 20 - count($files) }} spots available for upload</small>
+
+                                @foreach($files as $file)
+                                <div class="my-2"><strong class="text-sm">{{ $file->description }} [{{ $file->openai_file_id??'PENDING' }}]</strong>
+                                </div>
+                                @endforeach
+
+                                <x-primary-button-link href="{{ route('backend.bots.openai.files', ['botid' => $bot->id]) }}">{{ __('Manage Files ') }}</x-primary-button-link>
+                            </div>
+
 
                             <div class="flex items-center gap-4">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>

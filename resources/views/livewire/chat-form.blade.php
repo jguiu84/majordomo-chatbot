@@ -16,7 +16,7 @@ x-init="
                 <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end" wire:key="message-{{ $message->id }}">
                     <div>
                         <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">{{ $message->message }}</p>
+                            <p class="text-sm">{!! $message->message !!}</p>
                         </div>
                         {{-- <span class="text-xs text-gray-500 leading-none">2 min ago</span> --}}
                     </div>
@@ -27,7 +27,7 @@ x-init="
                     <div class="flex-shrink-0 h-10 w-10 rounded-full bg-slate-300"></div>
                     <div>
                         <div class="bg-slate-300 p-3 rounded-r-lg rounded-bl-lg">
-                            <p class="text-sm">{{ $message->message }}</p>
+                            <p class="text-sm">{!! $message->message !!}</p>
                         </div>
                         {{-- <span class="text-xs text-gray-500 leading-none">2 min ago</span> --}}
                     </div>

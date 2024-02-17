@@ -8,7 +8,7 @@ use Auth;
 use App\Models\ChatMessages;
 use App\Models\Chats;
 use App\Models\Bots;
-use App\Models\OpenaiAssitants;
+use App\Models\OpenaiAssistants;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class ChatForm extends Component
@@ -42,7 +42,7 @@ class ChatForm extends Component
     public function mount() { 
         $this->chat = Chats::where("id", $this->chat_id)->first();
         $this->bot = Bots::where("id", $this->chat->bot_id)->first();
-        $this->assistant = OpenaiAssitants::where("bot_id", $this->bot->id)->first();
+        $this->assistant = OpenaiAssistants::where("bot_id", $this->bot->id)->first();
         //TODO:aqui comprobamos de que tipo es y lo inicializamos
         
         //Buscamos los mensajes anteriores
@@ -52,6 +52,10 @@ class ChatForm extends Component
                             ->get();
 
         foreach($old_messages as $old_message){
+            
+            $old_message->message = preg_replace("#\*\*([^*]+)\*\*#", "<b>$1</b>", $old_message->message);
+            $old_message->message = nl2br($old_message->message);
+
             array_push($this->messages, $old_message);
         }
 
@@ -154,6 +158,8 @@ class ChatForm extends Component
 
         $answer = $messageList->data[0]->content[0]->text->value;
 
+        
+
         $this->botAnswer($answer);
     }
 
@@ -167,6 +173,10 @@ class ChatForm extends Component
             'message' => $message,
             'is_bot_answer' => true
         ]);
+
+        $dbMessage->message = preg_replace("#\*\*([^*]+)\*\*#", "<b>$1</b>", $dbMessage->messag);
+        $dbMessage->message = nl2br($dbMessage->message);
+
         array_push($this->messages, $dbMessage);
         $this->dispatch("scroll-bottom");
     }
