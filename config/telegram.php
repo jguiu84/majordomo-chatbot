@@ -41,7 +41,7 @@ return [
         ],
 
         'mih.ai' => [
-            'token' => env('TELEGRAM_BOT_TOKEN', 'TELEGRAM_MIHAI_MULTIBOT_TOKEN'),
+            'token' => env('TELEGRAM_MIHAI_MULTIBOT_TOKEN', 'TELEGRAM_MIHAI_MULTIBOT_TOKEN'),
             //'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
             'webhook_url' => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
             'commands' => [

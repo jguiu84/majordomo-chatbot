@@ -24,5 +24,5 @@ Route::prefix('whatsapp/webhooks')->group(function () {
 });
 
 
-Route::post('telegram/webhooks/{token}',  [TelegramController::class,'webhooks'])->name('telegram.webhook');
+Route::post('telegram/webhooks/{token}',  [TelegramController::class,'webhook'])->name('telegram.webhook');
 Route::get('telegram/createwebhook',  [TelegramController::class,'createWebhook'])->name('telegram.createwebhook');
