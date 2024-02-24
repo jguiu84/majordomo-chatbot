@@ -256,7 +256,12 @@ class TelegramController extends Controller
         
         $imagen_final = null;
         if(!empty($imagenes)){
-            $imagen_final = new InputFile($imagenes[1]);
+            try{
+                $imagen_final = new InputFile($imagenes[1]);
+            } catch(\Exception $e){
+                Log::info($e->getMessage());
+                
+            }
         }
 
         if($imagen_final){
