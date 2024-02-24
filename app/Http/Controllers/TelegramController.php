@@ -259,7 +259,7 @@ class TelegramController extends Controller
             try{
                 $imagen_final = new InputFile($imagenes[1]);
             } catch(\Exception $e){
-                Log::info($e->getMessage());
+                Log::info("InputFile: " . $e->getMessage());
                 
             }
         }
@@ -274,7 +274,7 @@ class TelegramController extends Controller
                     'parse_mode' => "Markdown"
                 ]);
             } catch(\Exception $e){
-                Log::info($e->getMessage());
+                Log::info("sendPhoto: " . $e->getMessage());
                 
             }
         } else {
@@ -285,7 +285,7 @@ class TelegramController extends Controller
                     'parse_mode' => "Markdown"
                 ]);
             } catch(\Exception $e){
-                Log::info($e->getMessage());
+                Log::info("sendMessage: " .$e->getMessage());
                 
             }
         }
