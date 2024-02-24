@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Twilio\Rest\Client;
 
 class WhatsAppController extends Controller
 {
@@ -27,26 +28,12 @@ class WhatsAppController extends Controller
         \Log::info($request->all());
 
         // WhatsApp sender phone number
-        $from = $request->from;
+        $from = $request->input('From');
+        $body = $request->input('Body');
         
-        if (!cache()->has("phone_{$from}")){
-
-            $text = "Welcome to DetectTextBOT 🤖\r\n\r\n";
-            $text .= 'Upload an Image and enjoy the Magic 🪄';
-
-            cache()->put("phone_{$from}",true,now()->addDay());
-
-        }else if($request->message_type=='image'){
-            
-            $image_url = $request->image['url'];
-            $text = app('detect_text')->getImageText($image_url);
-            
-        }else{
-            $text = "DetectTextBOT 🤖\r\n\r\nPlease upload image!";
-        }
-
+        $message ="Pong";
         // Send whatsapp message result
-        $result = app('whatsapp')->sendMessage($from,$text);
+        $result =$this->sendWhatsAppMessage($message, $from);
 
         return response()->json($result,200);
     }
@@ -60,5 +47,15 @@ class WhatsAppController extends Controller
     public function status(Request $request){
         \Log::Info($request->all());
         return response()->json([],200);
+    }
+
+    public function sendWhatsAppMessage(string $message, string $recipient)
+    {
+        $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+
+        $client = new Client($account_sid, $auth_token);
+        return $client->messages->create($recipient, array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
     }
 }
