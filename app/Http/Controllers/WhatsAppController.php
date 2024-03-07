@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WhatsappProcessMessageEvent;
+use App\Jobs\WhatsappProcessMessage;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
 
@@ -16,28 +18,40 @@ class WhatsAppController extends Controller
     {
         //$this->middleware('auth');
     }
-        
+
     /**
      * inbound
      *
      * @param  mixed $request
      * @return void
      */
-    public function inbound(Request $request){
-        
+    public function inbound(Request $request)
+    {
+
         \Log::info($request->all());
 
         // WhatsApp sender phone number
+        $sender = $request->input('To');
         $from = $request->input('From');
         $body = $request->input('Body');
-        
-        $message ="Pong";
+        $messageStatus = $request->input("MessageStatus");
+
+
+        $result = "";
+
+        // process the message
+        //$message ="Pong";
         // Send whatsapp message result
-        $result =$this->sendWhatsAppMessage($message, $from);
+        //$result =$this->sendWhatsAppMessage($message, $sender);
+
+        // map request to WhatsappProcessMessageEvent & dispatch event
+        // dispatched asynchronously
+        WhatsappProcessMessageEvent::dispatch($request);
+
 
         return response()->json($result,200);
     }
-    
+
     /**
      * status
      *
@@ -56,6 +70,10 @@ class WhatsAppController extends Controller
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
 
         $client = new Client($account_sid, $auth_token);
-        return $client->messages->create($recipient, array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
+        return $client->messages->create($recipient, [
+                "from" => "whatsapp:$twilio_whatsapp_number",
+                "body" => $message
+            ]
+        );
     }
 }
