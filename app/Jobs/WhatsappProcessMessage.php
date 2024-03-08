@@ -78,7 +78,7 @@ class WhatsappProcessMessage implements ShouldQueue
         Log::info($chat);
         if(!$chat){
             //$response = OpenAI::threads()->create([]);
-            $threadId = $openAIService->createThread();
+            $threadId = $this->openAIService->createThread();
             $chat = Chats::create([
                 'user_id' => $user->id,
                 'bot_id' => $bot->id,
