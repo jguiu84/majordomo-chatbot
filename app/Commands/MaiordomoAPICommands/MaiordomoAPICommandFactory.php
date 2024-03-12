@@ -10,7 +10,10 @@ class MaiordomoAPICommandFactory
             return null;
         }
 
-        return null;
+        return match ($commandName) {
+            "get_reserve", "GetReservation" => new GetReservation(),
+            default => null,
+        };
     }
 
 }
