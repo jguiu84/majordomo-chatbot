@@ -69,10 +69,12 @@ class OpenAIService implements OpenAIServiceInterface
     }
 
     private function processThreadRunResponse($threadRun, $message) : string {
+        \Log::info("ProcessThreadRunResponse:". $threadRun->id ." - ". $threadRun->status);
 
         // check if any assistant functions should be processed
         $threadRun = $this->processRunFunctions($threadRun);
 
+        \Log::debug($threadRun->id ." - ". $threadRun->status);
         if($threadRun->status == 'completed') {
             $messages = $this->getMessages($threadRun->threadId, 'asc', $message->id);
             $messagesData = $messages->data;
